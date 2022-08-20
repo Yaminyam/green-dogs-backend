@@ -1,3 +1,5 @@
+import { Task } from '@app/entity/task/task.entity';
+import { SubTask } from '@app/entity/subtask/subtask.entity';
 import {
   BaseEntity,
   Column,
@@ -9,15 +11,11 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Task } from '@app/entity/task/task.entity';
 
 @Entity('user')
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
-
-  @Column({ type: 'varchar', length: 20, nullable: false })
-  nickname!: string;
 
   @Column({ type: 'varchar', length: 20, nullable: false, unique: true })
   teamsUsername!: string;
@@ -38,9 +36,15 @@ export class User extends BaseEntity {
   @Index('ix_deleted_at')
   deletedAt?: Date;
 
-  @OneToMany(() => Task, (article) => article.writer, {
+  @OneToMany(() => Task, (task) => task.writer, {
     createForeignKeyConstraints: false,
     nullable: true,
   })
   task?: Task[];
+
+  @OneToMany(() => SubTask, (subTask) => subTask.writer, {
+    createForeignKeyConstraints: false,
+    nullable: true,
+  })
+  subTask?: SubTask[];
 }

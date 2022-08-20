@@ -18,7 +18,12 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config libs/common/src/database/ormconfig.ts",
+    "typeorm:migrate": "yarn typeorm migration:generate -n",
+    "typeorm:run": "yarn typeorm migration:run",
+    "typeorm:revert": "yarn typeorm migration:revert",
+    "seed": "ts-node -r tsconfig-paths/register libs/common/src/database/seed.ts"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
@@ -26,15 +31,18 @@
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/swagger": "^6.0.5",
+    "@nestjs/typeorm": "^9.0.1",
     "@types/cookie-parser": "^1.4.3",
     "cookie-parser": "^1.4.6",
     "morgan": "^1.10.0",
+    "mysql2": "^2.3.3",
     "nest-winston": "^1.7.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
     "swagger-ui-express": "^4.5.0",
     "typeorm": "^0.3.7",
+    "typeorm-naming-strategies": "^4.1.0",
     "winston": "^3.8.1",
     "winston-daily-rotate-file": "^4.7.1"
   },

@@ -1,4 +1,5 @@
-import { SubTask } from '@app/entity/subtask/subtask.entity';
+import { User } from '@app/entity/user/user.entity';
+import { Task } from '@app/entity/task/task.entity';
 import {
   BaseEntity,
   Column,
@@ -6,16 +7,14 @@ import {
   DeleteDateColumn,
   Entity,
   Index,
-  OneToMany,
-  ManyToOne,
   JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { User } from '../user/user.entity';
 
-@Entity('task')
-export class Task extends BaseEntity {
+@Entity('subtask')
+export class SubTask extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number;
 
@@ -29,25 +28,15 @@ export class Task extends BaseEntity {
   @Column({ nullable: false })
   weight!: number;
 
-  @Column({ nullable: true })
+  @Column({ nullable: false })
   @Index('ix_objective_id')
   parentTaskId!: number;
 
   @ManyToOne(() => Task, (task) => task.subTask, {
     createForeignKeyConstraints: false,
   })
-  @JoinColumn({ name: 'parent_task_id', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'objective_id', referencedColumnName: 'id' })
   parentTask?: Task;
-
-  @CreateDateColumn({ type: 'timestamp' })
-  createdAt!: Date;
-
-  @UpdateDateColumn({ type: 'timestamp' })
-  updatedAt!: Date;
-
-  @DeleteDateColumn({ type: 'timestamp' })
-  @Index('ix_deleted_at')
-  deletedAt?: Date;
 
   @Column({ nullable: false })
   @Index('ix_writer_id')
@@ -59,15 +48,13 @@ export class Task extends BaseEntity {
   @JoinColumn({ name: 'writer_id', referencedColumnName: 'id' })
   writer?: User;
 
-  @OneToMany(() => Task, (task) => task.task, {
-    createForeignKeyConstraints: false,
-    nullable: true,
-  })
-  task?: Task[];
+  @CreateDateColumn({ type: 'timestamp' })
+  createdAt!: Date;
 
-  @OneToMany(() => SubTask, (subTask) => subTask.parentTask, {
-    createForeignKeyConstraints: false,
-    nullable: true,
-  })
-  subTask?: SubTask[];
+  @UpdateDateColumn({ type: 'timestamp' })
+  updatedAt!: Date;
+
+  @DeleteDateColumn({ type: 'timestamp' })
+  @Index('ix_deleted_at')
+  deletedAt?: Date;
 }
