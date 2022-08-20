@@ -102,6 +102,15 @@ export class TaskController {
     });
   }
 
+  @Put('complete/:id')
+  @Auth()
+  @ApiOperation({ summary: '태스크 완료하기' })
+  @ApiOkResponse({ description: '태스크 완료' })
+  @ApiNotFoundResponse({ description: '존재하지 않는 태스크' })
+  async complete(@Param('id', ParseIntPipe) id: number, @GetUser('id') writerId: number): Promise<void | never> {
+    return this.taskService.complete(id, writerId);
+  }
+
   @Put(':id')
   @ApiOperation({ summary: '태스크 수정하기' })
   @ApiOkResponse({ description: '태스크 수정 완료' })

@@ -1,4 +1,3 @@
-import { SubTask } from '@app/entity/subtask/subtask.entity';
 import {
   BaseEntity,
   Column,
@@ -12,6 +11,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { SubTask } from '../subtask/subtask.entity';
 import { User } from '../user/user.entity';
 
 @Entity('task')
@@ -34,6 +34,9 @@ export class Task extends BaseEntity {
 
   @Column({ nullable: false, default: () => 'CURRENT_TIMESTAMP' })
   dueDate!: Date;
+
+  @Column({ nullable: false })
+  completed!: boolean;
 
   @Column({ nullable: true })
   @Index('ix_objective_id')
@@ -59,13 +62,13 @@ export class Task extends BaseEntity {
   @Index('ix_writer_id')
   writerId!: number;
 
-  @ManyToOne(() => User, (user) => user.subTask, {
+  @ManyToOne(() => User, (user) => user.task, {
     createForeignKeyConstraints: false,
   })
   @JoinColumn({ name: 'writer_id', referencedColumnName: 'id' })
   writer?: User;
 
-  @OneToMany(() => Task, (task) => task.task, {
+  @OneToMany(() => Task, (task) => task.parentTask, {
     createForeignKeyConstraints: false,
     nullable: true,
   })

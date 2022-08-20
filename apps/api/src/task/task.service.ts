@@ -68,6 +68,19 @@ export class TaskService {
     };
   }
 
+  async complete(id: number, writerId: number): Promise<void | never> {
+    const task = await this.taskRepository.findOneOrFail({
+      id,
+      writerId,
+    });
+    const newTask = {
+      ...task,
+      completed: true,
+    };
+
+    await this.taskRepository.save(newTask);
+  }
+
   async update(id: number, writerId: number, updateTaskRequestDto: UpdateTaskRequestDto): Promise<void | never> {
     const task = await this.taskRepository.findOneOrFail({
       id,
