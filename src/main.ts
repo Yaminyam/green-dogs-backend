@@ -1,4 +1,4 @@
-import { AppModule } from './app.module';
+import { AppModule } from 'app.module';
 import { HttpExceptionFilter } from '@app/common/filters/http-exception.filter';
 import { stream } from '@app/utils/logger';
 import { ValidationPipe } from '@nestjs/common';
