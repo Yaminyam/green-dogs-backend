@@ -1,4 +1,4 @@
-import { AppModule } from './app.module';
+import { AppModule } from '@api/app.module';
 import { HttpExceptionFilter } from '@app/common/filters/http-exception.filter';
 import { stream } from '@app/utils/logger';
 import { ValidationPipe } from '@nestjs/common';
@@ -16,18 +16,11 @@ async function bootstrap() {
   const port = configService.get('PORT');
 
   morgan.token('body', (req) => JSON.stringify(req.body));
-  app.use(
-    morgan(
-      ':method :url :status :response-time ms - :res[content-length] :body',
-      { stream: stream },
-    ),
-  );
+  app.use(morgan(':method :url :status :response-time ms - :res[content-length] :body', { stream: stream }));
 
   const config = new DocumentBuilder()
     .setTitle('GreenDocs API')
-    .setDescription(
-      `GreenDocs API - ${configService.get('NODE_ENV')} environment`,
-    )
+    .setDescription(`GreenDocs API - ${configService.get('NODE_ENV')} environment`)
     .setVersion('0.1')
     .addCookieAuth(process.env.ACCESS_TOKEN_KEY)
     .build();
@@ -38,9 +31,7 @@ async function bootstrap() {
   });
 
   const originList = process.env.ORIGIN_LIST || '';
-  const originRegex = process.env.ORIGIN_REGEX
-    ? new RegExp(process.env.ORIGIN_REGEX)
-    : '';
+  const originRegex = process.env.ORIGIN_REGEX ? new RegExp(process.env.ORIGIN_REGEX) : '';
   app.enableCors({
     origin: [...originList.split(',').map((item) => item.trim()), originRegex],
     credentials: true,

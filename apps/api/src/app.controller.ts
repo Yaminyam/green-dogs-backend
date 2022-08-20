@@ -1,12 +1,20 @@
+import { logger } from '@app/utils/logger';
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Hello')
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
-
   @Get()
+  @ApiOperation({ summary: 'Hello world!' })
+  @ApiOkResponse({ description: 'Hello world!' })
   getHello(): string {
-    return this.appService.getHello();
+    logger.info('Hello World!!');
+    return 'Hello World!';
+  }
+
+  @Get('/error')
+  getError(): void {
+    throw new Error('Hi Sentry!');
   }
 }
