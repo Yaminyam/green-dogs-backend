@@ -19,9 +19,6 @@ export class Objective extends BaseEntity {
   @Column({ type: 'varchar', length: 40, nullable: false })
   name!: string;
 
-  @Column({ nullable: false, default: false })
-  anonymity!: boolean;
-
   @CreateDateColumn({ type: 'timestamp' })
   createdAt!: Date;
 
