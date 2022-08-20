@@ -23,6 +23,9 @@ export const ormconfig = (): IOrmconfig => ({
     logging: process.env.NODE_ENV === 'dev',
 
     migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
+    cli: {
+      migrationsDir: 'src/database/migrations',
+    },
   },
 });
 

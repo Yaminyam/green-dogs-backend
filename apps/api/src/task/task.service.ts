@@ -45,7 +45,7 @@ export class TaskService {
   }
 
   async findOneByIdOrFail(id: number): Promise<Task | never> {
-    return this.taskRepository.findOneById(id);
+    return this.taskRepository.findOneOrFail(id);
   }
 
   async findOneOrFail(id: number): Promise<
@@ -56,8 +56,7 @@ export class TaskService {
       }
     | never
   > {
-    const task = await this.taskRepository.findOneOrFail({
-      where: { id },
+    const task = await this.taskRepository.findOneOrFail(id, {
       relations: ['writer', 'category'],
     });
 
@@ -69,7 +68,10 @@ export class TaskService {
   }
 
   async update(id: number, writerId: number, updateTaskRequestDto: UpdateTaskRequestDto): Promise<void | never> {
-    const task = await this.taskRepository.findOneOrFail({ where: { id, writerId } });
+    const task = await this.taskRepository.findOneOrFail({
+      id,
+      writerId,
+    });
     const newTask = {
       ...task,
       ...updateTaskRequestDto,

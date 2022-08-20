@@ -29,6 +29,12 @@ export class Task extends BaseEntity {
   @Column({ nullable: false })
   weight!: number;
 
+  @Column({ nullable: false })
+  assigneeId!: number;
+
+  @Column({ nullable: false })
+  dueDate!: Date;
+
   @Column({ nullable: true })
   @Index('ix_objective_id')
   parentTaskId!: number;

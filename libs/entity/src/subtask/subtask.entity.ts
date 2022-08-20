@@ -29,6 +29,15 @@ export class SubTask extends BaseEntity {
   weight!: number;
 
   @Column({ nullable: false })
+  assigneeId!: number;
+
+  @Column({ nullable: false })
+  dueDate!: Date;
+
+  @Column({ nullable: false })
+  completed!: boolean;
+
+  @Column({ nullable: false })
   @Index('ix_objective_id')
   parentTaskId!: number;
 

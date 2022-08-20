@@ -16,7 +16,6 @@ import { APP_GUARD } from '@nestjs/core';
     }),
 
     DatabaseModule.register(),
-    TaskModule,
   ],
   controllers: [AppController],
   providers: [],

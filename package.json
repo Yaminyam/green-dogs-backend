@@ -31,7 +31,7 @@
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/swagger": "^6.0.5",
-    "@nestjs/typeorm": "^9.0.1",
+    "@nestjs/typeorm": "^8.0.2",
     "@types/cookie-parser": "^1.4.3",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
@@ -43,7 +43,7 @@
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
     "swagger-ui-express": "^4.5.0",
-    "typeorm": "^0.3.7",
+    "typeorm": "^0.2.41",
     "typeorm-naming-strategies": "^4.1.0",
     "winston": "^3.8.1",
     "winston-daily-rotate-file": "^4.7.1"
