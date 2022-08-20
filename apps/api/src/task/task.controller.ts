@@ -80,6 +80,7 @@ export class TaskController {
   }
 
   @Get(':id')
+  @Auth()
   @ApiOperation({ summary: '오브젝트 상세 가져오기' })
   @ApiOkResponse({
     description: '오브젝트 상세',
@@ -91,6 +92,8 @@ export class TaskController {
     @GetUser() user: User,
   ): Promise<FindOneTaskResponseDto | never> {
     const { task, parentTask, writer } = await this.taskService.findOneOrFail(taskId);
+    console.log(task, parentTask, writer);
+    console.log(user);
     return FindOneTaskResponseDto.of({
       task,
       parentTask,
