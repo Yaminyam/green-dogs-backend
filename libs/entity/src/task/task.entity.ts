@@ -35,7 +35,7 @@ export class Task extends BaseEntity {
   @Column({ nullable: false, default: () => 'CURRENT_TIMESTAMP' })
   dueDate!: Date;
 
-  @Column({ nullable: false })
+  @Column({ nullable: false, default: false })
   completed!: boolean;
 
   @Column({ nullable: true })
