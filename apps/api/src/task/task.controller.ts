@@ -1,6 +1,6 @@
+import { Auth, AuthUser as GetUser } from '@api/auth/auth.decorator';
 import { PaginationResponseDto } from '@api/pagination/dto/pagination-response.dto';
 import { ApiPaginatedResponse } from '@api/pagination/pagination.decorator';
-import { GetUser } from '@api/user/user.decorator';
 import { User } from '@app/entity/user/user.entity';
 import {
   Body,
@@ -43,6 +43,7 @@ export class TaskController {
   ) {}
 
   @Post()
+  @Auth()
   @ApiOperation({ summary: '태스크 추가' })
   @ApiCreatedResponse({
     description: '업로드된 태스크',
@@ -54,12 +55,11 @@ export class TaskController {
     @Body() createTaskDto: CreateTaskRequestDto,
   ): Promise<CreateTaskResponseDto | never> {
     const { task, parentTask } = await this.taskService.create(user, createTaskDto);
-
+    console.log(task, parentTask);
     return CreateTaskResponseDto.of({
       task,
       parentTask,
       writer: user,
-      user,
     });
   }
 
@@ -71,9 +71,9 @@ export class TaskController {
     @GetUser() user: User,
   ): Promise<PaginationResponseDto<TaskResponseDto>> {
     const { tasks, totalCount } = await this.taskService.findAll(user, options);
-
+    console.log(tasks, totalCount);
     return PaginationResponseDto.of({
-      data: TaskResponseDto.ofArray({ tasks, user }),
+      data: TaskResponseDto.ofArray({ tasks }),
       options,
       totalCount,
     });

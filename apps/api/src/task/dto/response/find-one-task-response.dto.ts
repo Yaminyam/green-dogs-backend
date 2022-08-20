@@ -46,7 +46,6 @@ export class FindOneTaskResponseDto extends PickType(BaseTaskDto, [
     const parentTask = TaskResponseDto.of({
       task: config.parentTask,
       parentTask: config.parentTask.parentTask,
-      user: config.user,
       writer: config.writer,
     });
     const writer = UserResponseDto.of({ user: config.writer });

@@ -1,4 +1,5 @@
 import { PaginationRequestDto } from '@api/pagination/dto/pagination-request.dto';
+import { UserRole } from '@app/entity/user/interfaces/userrole.interface';
 import axios from 'axios';
 import { CookieOptions } from 'express';
 import { logger } from './logger';
@@ -44,6 +45,39 @@ export const errorHook = async (exceptionName: string, exceptionMessage: string)
     logger.error(e);
   }
 };
+
+export function compareRole(rule: UserRole, mine: UserRole): boolean {
+  const toRoleId = (r: UserRole) => {
+    switch (r) {
+      case UserRole.ADMIN:
+        return 3;
+      case UserRole.CADET:
+        return 2;
+      case UserRole.NOVICE:
+        return 1;
+      case UserRole.GUEST:
+        return 0;
+    }
+  };
+  return toRoleId(rule) <= toRoleId(mine);
+}
+
+export function includeRole(mine: UserRole): UserRole[] {
+  const toRoleId = (r: UserRole) => {
+    switch (r) {
+      case UserRole.ADMIN:
+        return 3;
+      case UserRole.CADET:
+        return 2;
+      case UserRole.NOVICE:
+        return 1;
+      case UserRole.GUEST:
+        return 0;
+    }
+  };
+  const includeRole: UserRole[] = Object.values(UserRole).filter((r) => toRoleId(r) <= toRoleId(mine));
+  return includeRole;
+}
 
 export const getPaginationSkip = (paginationDto: PaginationRequestDto) => {
   return (paginationDto.page - 1) * paginationDto.take;

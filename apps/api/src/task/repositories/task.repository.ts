@@ -1,5 +1,5 @@
-import { FindAllTaskRequestDto } from '@api/task/dto/request/find-all-task-request.dto';
 import { PaginationRequestDto } from '@api/pagination/dto/pagination-request.dto';
+import { FindAllTaskRequestDto } from '@api/task/dto/request/find-all-task-request.dto';
 import { Task } from '@app/entity/task/task.entity';
 import { getPaginationSkip } from '@app/utils/utils';
 import { NotFoundException } from '@nestjs/common';
@@ -11,12 +11,12 @@ export class TaskRepository extends Repository<Task> {
     tasks: Task[];
     totalCount: number;
   }> {
-    const query = this.createQueryBuilder('article')
+    const query = this.createQueryBuilder('task')
       .leftJoinAndSelect('task.writer', 'writer')
-      .leftJoinAndSelect('task.parent_task', 'parent_task')
+      .leftJoinAndSelect('task.parentTask', 'parent_task')
       .skip(getPaginationSkip(options))
       .take(options.take)
-      .where('parent_task_id = :id', { id: options.parentTaskId })
+      .where('task.parent_task_id = :id', { id: options.parentTaskId })
       .orderBy('task.createdAt', options.order);
 
     const totalCount = await query.getCount();

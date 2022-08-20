@@ -1,3 +1,4 @@
+import { UserRole } from '@app/entity/user/interfaces/userrole.interface';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsInt, IsString, Max, Min } from 'class-validator';
 
@@ -7,10 +8,30 @@ export class BaseUserResponseDto {
 
   @IsString()
   @ApiProperty()
-  teamsUsername!: string;
+  nickname!: string;
 
-  constructor(id: number, teamsUsername: string) {
+  @IsString()
+  @ApiProperty()
+  githubUsername!: string;
+
+  @IsString()
+  @ApiProperty({ example: UserRole.NOVICE })
+  role!: UserRole;
+
+  @IsInt()
+  @Min(0)
+  @Max(10)
+  @ApiProperty({
+    minimum: 0,
+    maximum: 10,
+  })
+  character!: number;
+
+  constructor(id: number, nickname: string, githubUsername: string, role: UserRole, character: number) {
     this.id = id;
-    this.teamsUsername = teamsUsername;
+    this.nickname = nickname;
+    this.githubUsername = githubUsername;
+    this.role = role;
+    this.character = character;
   }
 }

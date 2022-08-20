@@ -18,8 +18,8 @@ export class TaskResponseDto extends PickType(BaseTaskDto, [
     id: number;
     title: string;
     content: string;
-    parentTaskId: number;
-    parentTask: TaskResponseDto;
+    parentTaskId: number | null;
+    parentTask: TaskResponseDto | null;
     writerId: number;
     writer: UserResponseDto;
     createdAt: Date;
@@ -38,32 +38,24 @@ export class TaskResponseDto extends PickType(BaseTaskDto, [
     this.updatedAt = config.updatedAt;
   }
 
-  static of(config: { task: Task; parentTask: Task; writer: User; user: User }): TaskResponseDto {
-    const parentTask = TaskResponseDto.of({
-      task: config.parentTask,
-      parentTask: config.parentTask.parentTask,
-      writer: config.writer,
-      user: config.user,
-    });
+  static of(config: { task: Task; parentTask: Task; writer: User }): TaskResponseDto {
     const writer = UserResponseDto.of({ user: config.writer });
     const writerId = config.task.writerId;
 
     return new TaskResponseDto({
       ...config.task,
       ...config,
-      parentTask,
       writer,
       writerId,
     });
   }
 
-  static ofArray(config: { tasks: Task[]; user: User }): TaskResponseDto[] {
+  static ofArray(config: { tasks: Task[] }): TaskResponseDto[] {
     return config.tasks.map((task) =>
       TaskResponseDto.of({
         task,
         parentTask: task.parentTask,
         writer: task.writer,
-        user: config.user,
       }),
     );
   }

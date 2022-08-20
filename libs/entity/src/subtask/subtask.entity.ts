@@ -1,5 +1,5 @@
-import { User } from '@app/entity/user/user.entity';
 import { Task } from '@app/entity/task/task.entity';
+import { User } from '@app/entity/user/user.entity';
 import {
   BaseEntity,
   Column,

@@ -1,11 +1,13 @@
 import { AppModule } from '@api/app.module';
 import { HttpExceptionFilter } from '@app/common/filters/http-exception.filter';
+import { SentryInterceptor } from '@app/common/interceptor/sentry.interceptor';
 import { stream } from '@app/utils/logger';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as Sentry from '@sentry/node';
 import * as cookieParser from 'cookie-parser';
 import * as morgan from 'morgan';
 import { join } from 'path';
@@ -15,18 +17,22 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const port = configService.get('PORT');
 
+  Sentry.init({
+    dsn: configService.get('SENTRY_KEY'),
+  });
+  app.useGlobalInterceptors(new SentryInterceptor());
   morgan.token('body', (req) => JSON.stringify(req.body));
   app.use(morgan(':method :url :status :response-time ms - :res[content-length] :body', { stream: stream }));
 
   const config = new DocumentBuilder()
-    .setTitle('GreenDocs API')
-    .setDescription(`GreenDocs API - ${configService.get('NODE_ENV')} environment`)
+    .setTitle('42World API')
+    .setDescription(`42World API - ${configService.get('NODE_ENV')} environment`)
     .setVersion('0.1')
     .addCookieAuth(process.env.ACCESS_TOKEN_KEY)
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document, {
-    customSiteTitle: 'GrrenDocs',
+    customSiteTitle: '42world',
     customCss: '.swagger-ui .topbar { display: none }',
   });
 

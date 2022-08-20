@@ -1,4 +1,4 @@
-SERVICE_NAME = GreenDogs
+SERVICE_NAME = 42world
 COMPOSE_FLAGS = -f ./infra/docker-compose.yml --env-file ./infra/config/.env
 
 .PHONY: all
@@ -10,7 +10,8 @@ ready:
 	cp ./infra/config/.env.dev ./infra/config/.env
 	mkdir -p ./infra/db
 	docker-compose $(COMPOSE_FLAGS) up -d db
-	./infra/wait-for-healthy.sh GreenDogs-backend-db
+	docker-compose $(COMPOSE_FLAGS) up -d redis
+	./infra/wait-for-healthy.sh 42world-backend-db
 
 .PHONY: dev
 dev: dev-api
@@ -18,6 +19,14 @@ dev: dev-api
 .PHONY: dev-api
 dev-api: ready
 	yarn start:dev api
+
+.PHONY: dev-admin
+dev-admin: ready
+	yarn start:dev admin
+
+.PHONY: dev-batch
+dev-batch: ready
+	yarn start:dev batch
 
 .PHONY: clean
 clean:
@@ -32,7 +41,7 @@ clean-all: clean
 test-ready:
 	-cp ./infra/config/.env.test ./infra/config/.env
 	./infra/run_test_db.sh
-	./infra/wait-for-healthy.sh green_dogs-mysql-test
+	./infra/wait-for-healthy.sh ft_world-mysql-test
 
 .PHONY: test
 test: test-api
@@ -63,8 +72,16 @@ prod:
 
 # Build =================================================
 build-api:
-	docker build -t GreenDogs/backend-api:latest -f ./infra/api.Dockerfile . --platform linux/x86_64
-	docker push GreenDogs/backend-api:latest
+	docker build -t 42world/backend-api:latest -f ./infra/api.Dockerfile . --platform linux/x86_64
+	docker push 42world/backend-api:latest
+
+build-admin:
+	docker build -t 42world/backend-admin:latest -f ./infra/admin.Dockerfile . --platform linux/x86_64
+	docker push 42world/backend-admin:latest
+
+build-batch:
+	docker build -t 42world/backend-batch:latest -f ./infra/batch.Dockerfile . --platform linux/x86_64
+	docker push 42world/backend-batch:latest
 
 # Swarm =================================================
 

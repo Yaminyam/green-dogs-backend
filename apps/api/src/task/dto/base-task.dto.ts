@@ -1,4 +1,3 @@
-import { TaskResponseDto } from '@api/task/dto/response/task-response.dto';
 import { UserResponseDto } from '@api/user/dto/response/user-response.dto';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsInt, IsNotEmpty, IsString, MaxLength, Min } from 'class-validator';
@@ -20,7 +19,19 @@ export class BaseTaskDto {
   content!: string;
 
   @IsInt()
-  @Min(0)
+  @Min(1)
+  @IsNotEmpty()
+  @ApiProperty({ example: 1 })
+  weight!: number;
+
+  @IsInt()
+  @ApiProperty({ example: '작성자 입니다.' })
+  assigneeId!: number;
+
+  @ApiProperty({ example: '2021-12-31 00:00:00' })
+  dueDate!: Date;
+
+  @IsInt()
   @IsNotEmpty()
   @ApiProperty({ example: 1 })
   parentTaskId!: number;

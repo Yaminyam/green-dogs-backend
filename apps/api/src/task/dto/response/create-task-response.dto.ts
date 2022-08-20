@@ -1,5 +1,4 @@
 import { BaseTaskDto } from '@api/task/dto/base-task.dto';
-import { TaskResponseDto } from '@api/task/dto/response/task-response.dto';
 import { UserResponseDto } from '@api/user/dto/response/user-response.dto';
 import { Task } from '@app/entity/task/task.entity';
 import { User } from '@app/entity/user/user.entity';
@@ -19,8 +18,8 @@ export class CreateTaskResponseDto extends PickType(BaseTaskDto, [
     id: number;
     title: string;
     content: string;
-    parentTaskId: number;
-    parentTask: TaskResponseDto;
+    parentTaskId: number | null;
+    parentTask: Task | null;
     writerId: number;
     writer: UserResponseDto;
     createdAt: Date;
@@ -32,23 +31,18 @@ export class CreateTaskResponseDto extends PickType(BaseTaskDto, [
     this.title = config.title;
     this.content = config.content;
     this.parentTaskId = config.parentTaskId;
-    //this.parentTask = config.parentTask;
+    // this.parentTask = config.parentTask;
     this.writerId = config.writerId;
     this.writer = config.writer;
     this.createdAt = config.createdAt;
     this.updatedAt = config.updatedAt;
   }
 
-  static of(config: { task: Task; parentTask: Task; writer: User; user: User }): CreateTaskResponseDto {
+  static of(config: { task: Task; parentTask: Task; writer: User }): CreateTaskResponseDto {
     return new CreateTaskResponseDto({
       ...config.task,
       ...config,
-      parentTask: TaskResponseDto.of({
-        task: config.task,
-        parentTask: config.parentTask,
-        writer: config.writer,
-        user: config.user,
-      }),
+      parentTask: config.parentTask,
       writer: UserResponseDto.of({ user: config.writer }),
     });
   }

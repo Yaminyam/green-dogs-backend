@@ -21,6 +21,7 @@ export class TaskService {
     | never
   > {
     const parentTask = await this.findOneOrFail(createTaskDto.parentTaskId);
+    console.log(parentTask);
     const task = await this.taskRepository.save({
       ...createTaskDto,
       writerId: writer.id,
@@ -57,7 +58,7 @@ export class TaskService {
     | never
   > {
     const task = await this.taskRepository.findOneOrFail(id, {
-      relations: ['writer', 'category'],
+      relations: ['writer', 'parentTask'],
     });
 
     return {

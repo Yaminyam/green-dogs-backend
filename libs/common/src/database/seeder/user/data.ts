@@ -1,26 +1,35 @@
+import { UserRole } from '@app/entity/user/interfaces/userrole.interface';
 import { User } from '@app/entity/user/user.entity';
 import { PartialType } from '@nestjs/mapped-types';
 
 export class SeederDataUser extends PartialType(User) {
   id: number;
-  teamsUid: string;
-  teamsUsername: string;
+  githubUid: string;
+  nickname: string;
+  githubUsername: string;
+  role: UserRole;
 }
 
 export const users: SeederDataUser[] = [
   {
     id: 1,
-    teamsUid: 'noviceUserGithubUid',
-    teamsUsername: 'noviceGithubUserName',
+    githubUid: 'noviceUserGithubUid',
+    nickname: 'noviceUserNickName',
+    githubUsername: 'noviceGithubUserName',
+    role: UserRole.NOVICE,
   },
   {
     id: 2,
-    teamsUid: 'cadetGithubUid',
-    teamsUsername: 'cadetGithubUsername',
+    githubUid: 'cadetGithubUid',
+    nickname: 'cadetNickname',
+    githubUsername: 'cadetGithubUsername',
+    role: UserRole.CADET,
   },
   {
     id: 3,
-    teamsUid: 'adminGithubUid',
-    teamsUsername: 'adminGithubUsername',
+    githubUid: 'adminGithubUid',
+    nickname: 'adminNickname',
+    githubUsername: 'adminGithubUsername',
+    role: UserRole.ADMIN,
   },
 ];

@@ -6,9 +6,9 @@ import {
   DeleteDateColumn,
   Entity,
   Index,
-  OneToMany,
-  ManyToOne,
   JoinColumn,
+  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -32,7 +32,7 @@ export class Task extends BaseEntity {
   @Column({ nullable: false })
   assigneeId!: number;
 
-  @Column({ nullable: false })
+  @Column({ nullable: false, default: () => 'CURRENT_TIMESTAMP' })
   dueDate!: Date;
 
   @Column({ nullable: true })
