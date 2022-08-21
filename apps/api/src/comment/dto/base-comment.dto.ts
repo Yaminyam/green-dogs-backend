@@ -1,4 +1,3 @@
-import { ArticleResponseDto } from '@api/article/dto/response/article-response.dto';
 import { AnonyUserResponseDto } from '@api/user/dto/response/anony-user-response.dto';
 import { UserResponseDto } from '@api/user/dto/response/user-response.dto';
 import { ApiProperty } from '@nestjs/swagger';
@@ -22,9 +21,6 @@ export class BaseCommentDto {
   @IsNotEmpty()
   @ApiProperty({ example: 1 })
   articleId!: number;
-
-  @ApiProperty({ type: () => ArticleResponseDto })
-  article?: ArticleResponseDto;
 
   @IsInt()
   @Min(0)

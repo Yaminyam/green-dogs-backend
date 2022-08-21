@@ -20,41 +20,4 @@ import { ReactionService } from './reaction.service';
 @Controller('reactions')
 export class ReactionController {
   constructor(private readonly reactionService: ReactionService) {}
-
-  @Post('articles/:id')
-  @Auth()
-  @HttpCode(200)
-  @ApiOperation({ summary: '게시글 좋아요 버튼' })
-  @ApiCreatedResponse({
-    description: '게시글 좋아요 버튼 누름',
-    type: ReactionResponseDto,
-  })
-  @ApiNotFoundResponse({ description: '존재하지 않는 게시글' })
-  async reactionArticleCreateOrDelete(
-    @AuthUser() user: User,
-    @Param('id', ParseIntPipe) articleId: number,
-  ): Promise<ReactionResponseDto | never> {
-    const { article, isLike } = await this.reactionService.articleCreateOrDelete(user, articleId);
-
-    return ReactionResponseDto.of<Article>({ entity: article, isLike });
-  }
-
-  @Post('articles/:articleId/comments/:commentId')
-  @Auth()
-  @HttpCode(200)
-  @ApiOperation({ summary: '댓글 좋아요 버튼' })
-  @ApiCreatedResponse({
-    description: '댓글 좋아요 버튼 누름',
-    type: ReactionResponseDto,
-  })
-  @ApiNotFoundResponse({ description: '존재하지 않는 댓글' })
-  async reactionCommentCreateOrDelete(
-    @AuthUser() user: User,
-    @Param('articleId', ParseIntPipe) articleId: number,
-    @Param('commentId', ParseIntPipe) commentId: number,
-  ): Promise<ReactionResponseDto | never> {
-    const { comment, isLike } = await this.reactionService.commentCreateOrDelete(user, articleId, commentId);
-
-    return ReactionResponseDto.of<Comment>({ entity: comment, isLike });
-  }
 }

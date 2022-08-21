@@ -1,5 +1,4 @@
 import { AppController } from '@api/app.controller';
-import { ArticleModule } from '@api/article/article.module';
 import { AuthModule } from '@api/auth/auth.module';
 import { JwtAuthGuard } from '@api/auth/jwt-auth.guard';
 import { CategoryModule } from '@api/category/category.module';
@@ -43,7 +42,6 @@ import { AwsSdkModule } from 'nest-aws-sdk';
     }),
     CommentModule,
     UserModule,
-    ArticleModule,
     CategoryModule,
     NotificationModule,
     IntraAuthModule,
