@@ -15,6 +15,7 @@ export class FindOneTaskResponseDto extends PickType(BaseTaskDto, [
   'createdAt',
   'updatedAt',
   'tasks',
+  'assigneeId',
 ]) {
   @ApiProperty({ example: false })
   isSelf!: boolean;
@@ -33,6 +34,7 @@ export class FindOneTaskResponseDto extends PickType(BaseTaskDto, [
     isSelf: boolean;
     tasks: BaseTaskDto[];
     progress: number;
+    assigneeId: string;
   }) {
     super();
 
@@ -47,6 +49,7 @@ export class FindOneTaskResponseDto extends PickType(BaseTaskDto, [
     this.isSelf = config.isSelf;
     this.tasks = config.tasks;
     this.progress = config.progress;
+    this.assigneeId = config.assigneeId;
   }
 
   static of(config: {

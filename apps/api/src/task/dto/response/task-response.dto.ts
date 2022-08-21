@@ -13,6 +13,7 @@ export class TaskResponseDto extends PickType(BaseTaskDto, [
   'writer',
   'createdAt',
   'updatedAt',
+  'assigneeId',
 ]) {
   constructor(config: {
     id: number;
@@ -24,6 +25,7 @@ export class TaskResponseDto extends PickType(BaseTaskDto, [
     writer: UserResponseDto;
     createdAt: Date;
     updatedAt: Date;
+    assigneeId: string;
   }) {
     super();
 
@@ -36,6 +38,7 @@ export class TaskResponseDto extends PickType(BaseTaskDto, [
     this.writer = config.writer;
     this.createdAt = config.createdAt;
     this.updatedAt = config.updatedAt;
+    this.assigneeId = config.assigneeId;
   }
 
   static of(config: { task: Task; parentTask: Task; writer: User }): TaskResponseDto {

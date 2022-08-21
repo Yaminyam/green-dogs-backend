@@ -26,9 +26,9 @@ export class BaseTaskDto {
   @ApiProperty({ example: 1 })
   weight!: number;
 
-  @IsInt()
+  @IsString()
   @ApiProperty({ example: '작성자 입니다.' })
-  assigneeId!: number;
+  assigneeId!: string;
 
   @ApiProperty({ example: '2021-12-31 00:00:00' })
   dueDate!: Date;

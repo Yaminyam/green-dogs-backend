@@ -30,7 +30,7 @@ export class Task extends BaseEntity {
   weight!: number;
 
   @Column({ nullable: false })
-  assigneeId!: number;
+  assigneeId!: string;
 
   @Column({ nullable: false, default: () => 'CURRENT_TIMESTAMP' })
   dueDate!: Date;
