@@ -58,7 +58,7 @@ export class TaskService {
     | never
   > {
     const task = await this.taskRepository.findOneOrFail(id, {
-      relations: ['writer', 'parentTask'],
+      relations: ['writer', 'parentTask', 'task', 'task.writer'],
     });
 
     return {

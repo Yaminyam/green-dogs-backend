@@ -1,4 +1,6 @@
 import { UserResponseDto } from '@api/user/dto/response/user-response.dto';
+import { Task } from '@app/entity/task/task.entity';
+import { User } from '@app/entity/user/user.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsInt, IsNotEmpty, IsString, MaxLength, Min } from 'class-validator';
 
@@ -56,4 +58,42 @@ export class BaseTaskDto {
 
   @ApiProperty()
   deletedAt?: Date;
+
+  @ApiProperty()
+  tasks?: BaseTaskDto[];
+
+  constructor(config: {
+    id: number;
+    title: string;
+    content: string;
+    parentTaskId: number | null;
+    writerId: number;
+    writer: UserResponseDto;
+    createdAt: Date;
+    updatedAt: Date;
+  }) {
+    this.id = config.id;
+    this.title = config.title;
+    this.content = config.content;
+    this.parentTaskId = config.parentTaskId;
+    //this.parentTask = config.parentTask;
+    this.writerId = config.writerId;
+    this.writer = config.writer;
+    this.createdAt = config.createdAt;
+    this.updatedAt = config.updatedAt;
+  }
+  static of(config: { task: Task }): BaseTaskDto {
+    console.log('111 : ' + JSON.stringify(config.task));
+    console.log('111234 : ' + config.task.writer);
+    const writer = UserResponseDto.of({ user: config.task.writer });
+    console.log('writer : ' + config.task.writer);
+    const writerId = config.task.writerId;
+
+    return new BaseTaskDto({
+      ...config.task,
+      ...config,
+      writer,
+      writerId,
+    });
+  }
 }

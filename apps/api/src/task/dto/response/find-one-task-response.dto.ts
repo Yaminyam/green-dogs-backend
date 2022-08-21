@@ -14,6 +14,7 @@ export class FindOneTaskResponseDto extends PickType(BaseTaskDto, [
   'writer',
   'createdAt',
   'updatedAt',
+  'tasks',
 ]) {
   @ApiProperty({ example: false })
   isSelf!: boolean;
@@ -29,6 +30,7 @@ export class FindOneTaskResponseDto extends PickType(BaseTaskDto, [
     createdAt: Date;
     updatedAt: Date;
     isSelf: boolean;
+    tasks: BaseTaskDto[];
   }) {
     super();
 
@@ -37,13 +39,16 @@ export class FindOneTaskResponseDto extends PickType(BaseTaskDto, [
     this.content = config.content;
     this.writerId = config.writerId;
     this.writer = config.writer;
+    this.parentTaskId = config.parentTaskId;
     this.createdAt = config.createdAt;
     this.updatedAt = config.updatedAt;
     this.isSelf = config.isSelf;
+    this.tasks = config.tasks;
   }
 
   static of(config: { task: Task; parentTask: Task; writer: User; user: User }): FindOneTaskResponseDto {
     const writer = UserResponseDto.of({ user: config.writer });
+    console.log('111 : ' + writer);
     const writerId = config.task.writerId;
 
     return new FindOneTaskResponseDto({
@@ -52,6 +57,11 @@ export class FindOneTaskResponseDto extends PickType(BaseTaskDto, [
       writer,
       writerId,
       isSelf: config.user.id === config.writer.id,
+      tasks: config.task.task.map((task) =>
+        BaseTaskDto.of({
+          task,
+        }),
+      ),
     });
   }
 }
