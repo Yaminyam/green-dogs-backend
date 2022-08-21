@@ -5,7 +5,6 @@ import { CategoryModule } from '@api/category/category.module';
 import { CommentModule } from '@api/comment/comment.module';
 import { AWS_ACCESS_KEY, AWS_REGION, AWS_SECRET_KEY } from '@api/image/image.constant';
 import { ImageModule } from '@api/image/image.module';
-import { IntraAuthModule } from '@api/intra-auth/intra-auth.module';
 import { NotificationModule } from '@api/notification/notification.module';
 import { ReactionModule } from '@api/reaction/reaction.module';
 import { TaskModule } from '@api/task/task.module';
@@ -44,7 +43,6 @@ import { AwsSdkModule } from 'nest-aws-sdk';
     UserModule,
     CategoryModule,
     NotificationModule,
-    IntraAuthModule,
     AuthModule,
     ReactionModule,
     ImageModule,
