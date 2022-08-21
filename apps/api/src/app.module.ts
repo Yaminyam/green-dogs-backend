@@ -2,10 +2,8 @@ import { AppController } from '@api/app.controller';
 import { ArticleModule } from '@api/article/article.module';
 import { AuthModule } from '@api/auth/auth.module';
 import { JwtAuthGuard } from '@api/auth/jwt-auth.guard';
-import { BestModule } from '@api/best/best.module';
 import { CategoryModule } from '@api/category/category.module';
 import { CommentModule } from '@api/comment/comment.module';
-import { FtCheckinModule } from '@api/ft-checkin/ft-checkin.module';
 import { AWS_ACCESS_KEY, AWS_REGION, AWS_SECRET_KEY } from '@api/image/image.constant';
 import { ImageModule } from '@api/image/image.module';
 import { IntraAuthModule } from '@api/intra-auth/intra-auth.module';
@@ -50,9 +48,7 @@ import { AwsSdkModule } from 'nest-aws-sdk';
     NotificationModule,
     IntraAuthModule,
     AuthModule,
-    BestModule,
     ReactionModule,
-    FtCheckinModule,
     ImageModule,
     TaskModule,
   ],
