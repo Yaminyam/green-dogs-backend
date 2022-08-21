@@ -18,6 +18,7 @@ export class FindOneTaskResponseDto extends PickType(BaseTaskDto, [
 ]) {
   @ApiProperty({ example: false })
   isSelf!: boolean;
+  progress: number;
 
   constructor(config: {
     id: number;
@@ -31,6 +32,7 @@ export class FindOneTaskResponseDto extends PickType(BaseTaskDto, [
     updatedAt: Date;
     isSelf: boolean;
     tasks: BaseTaskDto[];
+    progress: number;
   }) {
     super();
 
@@ -44,9 +46,16 @@ export class FindOneTaskResponseDto extends PickType(BaseTaskDto, [
     this.updatedAt = config.updatedAt;
     this.isSelf = config.isSelf;
     this.tasks = config.tasks;
+    this.progress = config.progress;
   }
 
-  static of(config: { task: Task; parentTask: Task; writer: User; user: User }): FindOneTaskResponseDto {
+  static of(config: {
+    task: Task;
+    parentTask: Task;
+    writer: User;
+    user: User;
+    progress: number;
+  }): FindOneTaskResponseDto {
     const writer = UserResponseDto.of({ user: config.writer });
     console.log('111 : ' + writer);
     const writerId = config.task.writerId;
@@ -62,6 +71,7 @@ export class FindOneTaskResponseDto extends PickType(BaseTaskDto, [
           task,
         }),
       ),
+      progress: config.progress,
     });
   }
 }

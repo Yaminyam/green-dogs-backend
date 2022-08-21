@@ -62,6 +62,9 @@ export class BaseTaskDto {
   @ApiProperty()
   tasks?: BaseTaskDto[];
 
+  @ApiProperty()
+  completed!: boolean;
+
   constructor(config: {
     id: number;
     title: string;
@@ -71,6 +74,7 @@ export class BaseTaskDto {
     writer: UserResponseDto;
     createdAt: Date;
     updatedAt: Date;
+    completed: boolean;
   }) {
     this.id = config.id;
     this.title = config.title;
@@ -81,6 +85,7 @@ export class BaseTaskDto {
     this.writer = config.writer;
     this.createdAt = config.createdAt;
     this.updatedAt = config.updatedAt;
+    this.completed = config.completed;
   }
   static of(config: { task: Task }): BaseTaskDto {
     console.log('111 : ' + JSON.stringify(config.task));

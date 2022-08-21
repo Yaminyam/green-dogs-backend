@@ -92,13 +92,13 @@ export class TaskController {
     @GetUser() user: User,
   ): Promise<FindOneTaskResponseDto | never> {
     const { task, parentTask, writer } = await this.taskService.findOneOrFail(taskId);
-    console.log(task, parentTask, writer);
-    console.log(user);
+    const progress = await this.taskService.getProgress(task.task);
     return FindOneTaskResponseDto.of({
       task,
       parentTask,
       writer,
       user,
+      progress,
     });
   }
 

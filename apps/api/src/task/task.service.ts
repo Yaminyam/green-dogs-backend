@@ -10,6 +10,13 @@ import { TaskRepository } from './repositories/task.repository';
 export class TaskService {
   constructor(private readonly taskRepository: TaskRepository) {}
 
+  async getProgress(task: Task[]): Promise<number> {
+    const total = task.length;
+    const completed = task.filter((task) => task.completed).length;
+
+    return Math.floor((completed / total) * 100);
+  }
+
   async create(
     writer: User,
     createTaskDto: CreateTaskRequestDto,
