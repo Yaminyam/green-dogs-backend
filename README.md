@@ -46,7 +46,7 @@
 1. 위에 명시된 버전들을 확인해주세요.
 2. 백엔드 저장소를 클론해주세요.
    ```
-   git clone https://github.com/42-world/42world-Backend.git
+   git clone https://github.com/Yaminyam/green-dogs-backend.git
    ```
 3. yarn으로 패키지를 설치해주세요.
    ```
