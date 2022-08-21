@@ -72,3 +72,7 @@ sample.env.dev 파일을 .env.dev 로 이름을 바꾸고 비어있는 부분을
   make dev
   ```
 명령어는 디렉토리 최상단에서 실행해주세요.
+
+## api 명세
+
+실행 후 http://localhost:8888/docs 에서 api 명세를 확인 가능합니다.
