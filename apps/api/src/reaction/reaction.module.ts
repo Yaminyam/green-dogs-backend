@@ -1,5 +1,4 @@
 import { CategoryModule } from '@api/category/category.module';
-import { CommentModule } from '@api/comment/comment.module';
 import { ReactionComment } from '@app/entity/reaction/reaction-comment.entity';
 import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -8,11 +7,7 @@ import { ReactionService } from './reaction.service';
 import { ReactionArticleRepository } from './repositories/reaction-article.repository';
 
 @Module({
-  imports: [
-    CategoryModule,
-    TypeOrmModule.forFeature([ReactionArticleRepository, ReactionComment]),
-    forwardRef(() => CommentModule),
-  ],
+  imports: [CategoryModule, TypeOrmModule.forFeature([ReactionArticleRepository, ReactionComment])],
   controllers: [ReactionController],
   providers: [ReactionService],
   exports: [ReactionService],

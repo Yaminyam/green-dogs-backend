@@ -1,9 +1,8 @@
 import { CategoryService } from '@api/category/category.service';
-import { CommentService } from '@api/comment/comment.service';
 import { PaginationRequestDto } from '@api/pagination/dto/pagination-request.dto';
 import { ReactionArticle, ReactionArticleType } from '@app/entity/reaction/reaction-article.entity';
 import { ReactionComment, ReactionCommentType } from '@app/entity/reaction/reaction-comment.entity';
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ReactionArticleRepository } from './repositories/reaction-article.repository';
@@ -15,9 +14,6 @@ export class ReactionService {
 
     @InjectRepository(ReactionComment)
     private readonly reactionCommentRepository: Repository<ReactionComment>,
-
-    @Inject(forwardRef(() => CommentService))
-    private readonly commentService: CommentService,
 
     private readonly categoryService: CategoryService,
   ) {}

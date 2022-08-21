@@ -1,5 +1,4 @@
 import { Auth, AuthUser } from '@api/auth/auth.decorator';
-import { CommentService } from '@api/comment/comment.service';
 import { ReactionService } from '@api/reaction/reaction.service';
 import { UserProfileResponseDto } from '@api/user/dto/response/user-profile-response.dto';
 import { UserProfileMapper } from '@api/user/dto/user-profile.mapper';
@@ -22,11 +21,7 @@ import { UserService } from './user.service';
 @ApiTags('User')
 @Controller('users')
 export class UserController {
-  constructor(
-    private readonly userService: UserService,
-    private readonly reactionService: ReactionService,
-    private readonly commentService: CommentService,
-  ) {}
+  constructor(private readonly userService: UserService, private readonly reactionService: ReactionService) {}
 
   @Get('me')
   @Auth()

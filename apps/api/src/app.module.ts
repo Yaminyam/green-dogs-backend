@@ -2,7 +2,6 @@ import { AppController } from '@api/app.controller';
 import { AuthModule } from '@api/auth/auth.module';
 import { JwtAuthGuard } from '@api/auth/jwt-auth.guard';
 import { CategoryModule } from '@api/category/category.module';
-import { CommentModule } from '@api/comment/comment.module';
 import { AWS_ACCESS_KEY, AWS_REGION, AWS_SECRET_KEY } from '@api/image/image.constant';
 import { ImageModule } from '@api/image/image.module';
 import { NotificationModule } from '@api/notification/notification.module';
@@ -39,7 +38,6 @@ import { AwsSdkModule } from 'nest-aws-sdk';
         },
       },
     }),
-    CommentModule,
     UserModule,
     CategoryModule,
     NotificationModule,

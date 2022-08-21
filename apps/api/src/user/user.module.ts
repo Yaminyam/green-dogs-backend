@@ -1,4 +1,3 @@
-import { CommentModule } from '@api/comment/comment.module';
 import { NotificationModule } from '@api/notification/notification.module';
 import { ReactionModule } from '@api/reaction/reaction.module';
 import { Module } from '@nestjs/common';
@@ -8,7 +7,7 @@ import { UserController } from './user.controller';
 import { UserService } from './user.service';
 
 @Module({
-  imports: [NotificationModule, CommentModule, ReactionModule, TypeOrmModule.forFeature([UserRepository])],
+  imports: [NotificationModule, ReactionModule, TypeOrmModule.forFeature([UserRepository])],
   controllers: [UserController],
   providers: [UserService],
   exports: [UserService],
