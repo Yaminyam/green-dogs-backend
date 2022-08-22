@@ -1,6 +1,6 @@
 # green-dogs-backend
 
-
+Junction Asia 2022 · Team GreenDogs · Microsoft Track
 
 ## 저장소 구조
 
