@@ -1,6 +1,9 @@
 # green-dogs-backend
+![image](https://user-images.githubusercontent.com/31057849/186364062-67ace5be-0451-4f64-acfc-d617df5f3b02.png)
 
 Junction Asia 2022 · Team GreenDogs · Microsoft Track
+
+
 
 ## 저장소 구조
 
